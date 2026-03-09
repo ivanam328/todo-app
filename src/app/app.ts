@@ -16,12 +16,12 @@ export class AppComponent {
   constructor(){
     const savedTasks=localStorage.getItem('tasks');
     if(savedTasks){
-      this.task=JSON.parse(savedTasks);
+      this.tasks=JSON.parse(savedTasks);
     }
   }
 
   saveTasks(){
-    localStorage.setItem('tasks',JSON.stringify(this.task));
+    localStorage.setItem('tasks',JSON.stringify(this.tasks));
   }
 
   addTask() {
