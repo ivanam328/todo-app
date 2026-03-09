@@ -11,16 +11,33 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent {
   task: string = '';
-  tasks: string[] = [];
+  tasks: {name:string; done:boolean} []= [];
+
+  constructor(){
+    const savedTasks=localStorage.getItem('tasks');
+    if(savedTasks){
+      this.task=JSON.parse(savedTasks);
+    }
+  }
+
+  saveTasks(){
+    localStorage.setItem('tasks',JSON.stringify(this.task));
+  }
 
   addTask() {
     if (this.task.trim()) {
-      this.tasks.push(this.task.trim());
+      this.tasks.push({name:this.task.trim(),done:false});
       this.task = '';
+      this.saveTasks();
     }
   }
 
   removeTask(index: number) {
     this.tasks.splice(index, 1);
+    this.saveTasks();
+  }
+   toggleDone(task: { name: string; done: boolean }) {
+    task.done = !task.done;
+    this.saveTasks();
   }
 }

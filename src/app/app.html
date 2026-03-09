@@ -1,13 +1,13 @@
 <div class="todo-container">
-  <h1>Mini To-Do Lista</h1>
-  
-  <input [(ngModel)]="task" placeholder="Unesi zadatak" />
-  <button (click)="addTask()">Dodaj</button>
-  
+  <h1>My To-Do List</h1>
+  <input type="text" [(ngModel)]="task" placeholder="Add new task">
+  <button (click)="addTask()">Add</button>
+
   <ul>
-    <li *ngFor="let t of tasks; let i = index">
-      {{ t }}
-      <button (click)="removeTask(i)">Obriši</button>
+    <li *ngFor="let t of tasks; index as i">
+      <input type="checkbox" [(ngModel)]="t.done" (change)="toggleDone(t)">
+      <span [class.done]="t.done">{{ t.name }}</span>
+      <button (click)="removeTask(i)">Delete</button>
     </li>
   </ul>
 </div>
